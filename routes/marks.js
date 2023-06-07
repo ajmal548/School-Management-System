@@ -3,8 +3,6 @@ var router = express.Router();
 
 var mark = require("../schema/markschema");
 
-var mongoose = require('mongoose');
-
 router.post("/", function (req, res) {
     if (!req.body.exam || !req.body.stID || !req.body.sbID || !req.body.mark) {
         res.send("pls fill all data")

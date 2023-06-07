@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var mongoose = require("mongoose");
+
 var exam = require("../schema/examschema");
 
 router.post("/",function(req,res){
