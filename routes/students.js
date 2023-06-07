@@ -81,7 +81,8 @@ router.get('/id/:stID',async(req, res)=>{
       .exec
       console.log("data");
       res.send(data);
-})
+});
+
  module.exports = router;
  
 //limit and skip
