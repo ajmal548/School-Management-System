@@ -1,12 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-
-
-var mongoose = require('mongoose');
 var subject = require('../schema/subjectschema');
-//mongoose.connect('mongodb://localhost/my_school');
-
 
 router.post('/', function (req, res) {
     var SubInfo = req.body;
