@@ -4,8 +4,6 @@ var router = express.Router();
 
 var stdsub_collection =require("../schema/stdsubschema");
 
-var mongoose = require('mongoose');
-
 router.post('/', function (req, res) {
    var ssInfo = req.body;
    console.log("SSInfo");
