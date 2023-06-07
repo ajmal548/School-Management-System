@@ -2,7 +2,6 @@ var express = require('express');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
-var usermodel = require("../schema/userschema");
 
 router.post('/signup', passport.authenticate('signup', { session: false }),
     function (req, res, next) {
