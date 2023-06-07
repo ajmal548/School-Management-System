@@ -78,7 +78,6 @@ router.get('/id/:stID',async(req, res)=>{
    var data = await stdsub_collection.find({ stID: req.params.stID })
       .select({ 'stID': 0 })
       .populate('sbID')
-      .exec
       console.log("data");
       res.send(data);
 });
