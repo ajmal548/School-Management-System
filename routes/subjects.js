@@ -1,69 +1,41 @@
 var express = require('express');
 var router = express.Router();
-
 var subject = require('../schema/subjectschema');
 
-router.post('/', function (req, res) {
-    var SubInfo = req.body;
-    console.log("posting");
-    if (!SubInfo.name) {
-        res.send('err info');
-    } else {
-        var newsubjects = new subject({
-            name: SubInfo.name,
-        })
-        {
-            newsubjects.save(function (err) {
-                if (err) {
-                    res.send("Database error");
-                }
-            });
-            res.send("done");
+router.post('/', async (req, res) => {
+    try {
+        var SubInfo = req.body;
+        if (!SubInfo.name) {
+            res.send('err info');
+        } else {
+            var newsubjects = new subject({
+                name: SubInfo.name,
+            })
+            var data = await newsubjects.save()
+            res.send(data);
         }
+    } catch (err) {
+        res.send(err)
     }
-
 });
 
-router.get('/find', function (req, res) {
-    subject.find(function (err, data) {
-        res.send(data)
-    });
+router.get('/find', async (req, res) => {
+    var data = await subject.find()
+    res.send(data)
 });
 
-router.get('/:_id', function (req, res) {
-    console.log('finded')
-    subject.findOne({ _id: req.params._id }, function (err, data) {
-        if (err) {
-            console.log('err')
-        } else {
-            res.send(data)
-        }
-    });
+router.get('/:_id', async (req, res) => {
+    var data = await subject.findOne({ _id: req.params._id })
+    res.send(data)
 });
 
-router.delete('/:_id', function (req, res) {
-    console.log('dlt')
-    subject.remove({ _id: req.params._id }, function (err, data) {
-        if (err) {
-            console.log(err)
-        } else {
-            res.send(data)
-        }
-    });
+router.delete('/:_id', async (req, res) => {
+    var data = await subject.remove({ _id: req.params._id })
+    res.send(data)
 });
 
-router.put('/:_id', function (req, res) {
-    console.log("updated");
-    subject.findOneAndUpdate({ _id: req.params._id },
-        { name: req.body.name }, function (err, data) {
-            if (err) {
-                res.send("err");
-            } else {
-                res.send("updated");
-
-            }
-        });
+router.put('/:_id', async (req, res) => {
+    var data = await subject.findOneAndUpdate({ _id: req.params._id }, { name: req.body.name })
+    res.send("updated");
 });
-
 module.exports = router;
-//app.listen(1000);

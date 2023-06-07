@@ -1,84 +1,56 @@
 var express = require('express');
-
 var router = express.Router();
 
 var studentmodel = require('../schema/studentschema');
 var stdsub_collection = require('../schema/stdsubschema')
 
-router.post('/', function (req, res) {
-   var StudentInfo = req.body;
-   console.log(StudentInfo);
-   if (!StudentInfo.name || !StudentInfo.age || !StudentInfo.ph) {
-      res.send("Sorry,worng data");
-   } else {
-      var newstudents = new studentmodel({
-         name: StudentInfo.name,
-         age: StudentInfo.age,
-         ph: StudentInfo.ph
-      })
-
-      var c = StudentInfo.ph;
-      console.log(c.length);
-      if (c.length < 10 || c.length > 10) {
-         res.send("please enter 10 digit");
+router.post('/',async(req,res)=>{
+   try{
+      var StudentInfo = req.body;
+      if (!StudentInfo.name || !StudentInfo.age || !StudentInfo.ph) {
+         res.send("Sorry,worng data");
       } else {
-         res.send("done");
+         var newstudents = new studentmodel({
+            name: StudentInfo.name,
+            age: StudentInfo.age,
+            ph: StudentInfo.ph
+         })
+         var c = StudentInfo.ph;
+         if (c.length < 10 || c.length > 10) {
+            res.send("please enter 10 digit");
+         } else {
+            res.send("done")
+         }
+         var data = await newstudents.save()
+            res.send(data);
       }
-      {
-         newstudents.save(function (err) {
-            if (err) {
-               res.send("Database error");
-            }
-         });
-         res.send("done");
-      }
+   }catch(err){
+      res.send(err)
    }
 });
 
-
-router.get('/find', function (req, res) {
-   console.log('finded')
-   student.find(function (err, data) {
+router.get('/find',async(req,res)=>{
+   var data = await student.find() 
       res.send(data)
-   });
 });
 
-router.get('/:_id', function (req, res) {
-   student.findOne({ _id: req.params._id }, function (err, data) {
-      if (err) {
-         console.log(err);
-      } else {
-         res.send(data)
-      }
-   });
+router.get('/:_id',async(req,res)=>{
+   var data = await student.findOne({ _id: req.params._id })
+      res.send(data)
 });
-router.delete('/:_id', function (req, res) {
-   student.remove({ _id: req.params._id }, function (err, data) {
-      if (err) {
-         console.log(err);
-      } else {
-         res.send(data);
-         console.log("deleted")
-      }
-   });
-});
-router.put('/:_id', function (req, res) {
-       student.findOneAndUpdate({ _id: req.params._id },
-      { name: req.body.name }, function (err, data) {
-         console.log("hello st");
-         if (err) {
-            res.send("err");
-         } else {
-            console.log("update");
-            res.send(data);
 
-         }
-      });
+router.delete('/:_id',async(req,res)=>{
+   var data = await student.remove({ _id: req.params._id })
+      res.send(data);
+      console.log("deleted");
+});
+router.put('/:_id',async(req,res)=>{
+   var data = await student.findOneAndUpdate({ _id: req.params._id },{ name: req.body.name })  
+      console.log("update");
+      res.send(data);
 });
 
 // Adding Pagination
-
-
 router.get('/students/page', async (req, res) => {
    console.log("hi");
    try {
@@ -96,36 +68,23 @@ router.get('/students/page', async (req, res) => {
          res.status(200).send(data);
       }
 
-   } catch (e) {
-      console.log(e);
+   } catch (err) {
+      console.log(err);
    }
 });
 
 //populate by id 
-
-router.get('/id/:stID', function (req, res) {
-   stdsub_collection.find({ stID: req.params.stID }).select({ 'stID': 0 }).
-      populate('sbID').
-      exec(function (err, data) {
-         if (err) {
-            res.send("err")
-         } else {
-            console.log("data");
-            res.send(data);
-         }
-
-      });
+router.get('/id/:stID',async(req, res)=>{
+   var data = await stdsub_collection.find({ stID: req.params.stID })
+      .select({ 'stID': 0 })
+      .populate('sbID')
+      .exec
+      console.log("data");
+      res.send(data);
 })
-
-
  module.exports = router;
-//app.listen(3001);
-
-
-
-
-
-
+ 
+//limit and skip
 // app.get('/students/page', async (req, res) => {
    //    try {
    

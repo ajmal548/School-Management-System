@@ -1,7 +1,5 @@
 var express = require('express');
-
 var router = express.Router();
-
 var stdsub_collection =require("../schema/stdsubschema");
 
 router.post('/', function (req, res) {
