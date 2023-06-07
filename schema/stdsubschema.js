@@ -1,4 +1,3 @@
-const { ObjectId } = require('mongodb');
 var mongoose = require('mongoose');
 var stdsubSchema = mongoose.Schema({
     stID: { type: mongoose.Schema.Types.ObjectId, ref: 'student' },
