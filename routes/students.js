@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var studentmodel = require('../schema/studentschema');
-var stdsub_collection = require('../schema/stdsubschema')
+var stdsub_collection = require('../schema/stdsubschema');
+var mark = require("../schema/markschema");
 
 router.post('/',async(req,res)=>{
    try{
@@ -81,7 +82,13 @@ router.get('/id/:stID',async(req, res)=>{
       console.log("data");
       res.send(data);
 });
-
+//exam marks
+router.get('/:exam/:stID', async (req, res) => {
+   var data = await mark.find({ exam: req.params.exam, stID: req.params.stID })
+       .select({ 'stID': 0 })
+       .populate('sbID')
+   res.send(data);
+});
  module.exports = router;
  
 //limit and skip
