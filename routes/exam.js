@@ -1,21 +1,12 @@
 var express = require("express");
 var router = express.Router();
-
 var exam = require("../schema/examschema");
 
-router.post("/",function(req,res){
-
+router.post("/",async(req,res)=>{
     var newexam = new exam({
         examination:req.body.examination
     });
-    {
-        newexam.save(function(err,data){
-            if(err){
-                res,send("err")
-            } 
-        })
-        res.send("data");
-    }
-
+        var data= await newexam.save();
+        res.send(data);
 });
 module.exports=router;
