@@ -9,4 +9,8 @@ router.post("/", async (req, res) => {
     var data = await newexam.save();
     res.send(data);
 });
+router.get("/",async(req,res)=>{
+    var data = await exam.find()
+    res.send(data);
+})
 module.exports = router;
