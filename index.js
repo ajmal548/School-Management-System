@@ -13,14 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-var student=require('./schema/studentschema');
-var subject = require('./schema/subjectschema');
-var stdsub_collection = require('./schema/stdsubschema');
-var teachermodel=require("./schema/userschema");
-var examschema = require("./schema/markschema");
-
-require('./auth/auth');
-
 var st = require('./routes/students');
 var stsb = require('./routes/stdsub');
 var sb = require('./routes/subjects');
