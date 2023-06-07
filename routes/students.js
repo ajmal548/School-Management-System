@@ -5,9 +5,6 @@ var router = express.Router();
 var studentmodel = require('../schema/studentschema');
 var stdsub_collection = require('../schema/stdsubschema')
 
-
-var mongoose = require('mongoose');
-
 router.post('/', function (req, res) {
    var StudentInfo = req.body;
    console.log(StudentInfo);
