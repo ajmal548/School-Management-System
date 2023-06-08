@@ -51,7 +51,6 @@ passport.use('login', new localStrategy({
     }
 )
 );
-//verify jwt
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
 
