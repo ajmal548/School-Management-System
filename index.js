@@ -13,12 +13,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
+var usermodel = require("./schema/userschema");
+
+
+require('./auth/auth')
 var st = require('./routes/students');
 var stsb = require('./routes/stdsub');
 var sb = require('./routes/subjects');
 const routes = require('./routes/user'); 
 var exam =require('./routes/exam');
 var mark =require('./routes/marks');
+
 
 app.use('/student',st);
 app.use('/ss',stsb);

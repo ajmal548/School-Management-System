@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var studentmodel = require('../schema/studentschema');
+var student = require('../schema/studentschema');
 var stdsub_collection = require('../schema/stdsubschema');
 var mark = require("../schema/markschema");
 
