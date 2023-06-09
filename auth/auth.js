@@ -5,16 +5,14 @@ const localStrategy = require('passport-local').Strategy;
 
 var usermodel = require("../schema/userschema");
 
-passport.use('signup', new localStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-    passReqToCallback: true
+passport.use('signup', new localStrategy({ 
+    usernameField: 'email', 
+    passwordField: 'password' 
 },
-    async (req, email, password, done) => {
-        console.log("hi")
-        const { name, ph, age, type } = req.body;
+    async (email, password, done) => {
         try {
-            const user = await usermodel.create({ email, password, name, ph, age, type });
+            const user = await UserModel.create({ email, password});
+            console.log('hh');
 
             return done(null, user);
         } catch (error) {
@@ -23,6 +21,27 @@ passport.use('signup', new localStrategy({
     }
 )
 );
+
+
+// passport.use('signup', new localStrategy({
+//     usernameField: 'email',
+//     passwordField: 'password',
+//     passReqToCallback: true
+// },
+//     async (req, email, password, done) => {
+//         console.log("hi")
+//         const { name, ph, age, type } = req.body;
+//         console.log("hii")
+//         try {
+//             const user = await usermodel.create({ email, password, name, ph, age, type });
+
+//             return done(null, user);
+//         } catch (error) {
+//             done(error);
+//         }
+//     }
+// )
+// );
 
 passport.use('login', new localStrategy({
     usernameField: 'email',
