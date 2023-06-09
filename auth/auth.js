@@ -11,7 +11,7 @@ passport.use('signup', new localStrategy({
 },
     async (email, password, done) => {
         try {
-            const user = await UserModel.create({ email, password});
+            const user = await usermodel.create({ email, password});
             console.log('hh');
 
             return done(null, user);
