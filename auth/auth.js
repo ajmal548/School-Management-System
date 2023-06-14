@@ -31,11 +31,11 @@ passport.use('login', new localStrategy({
     passwordField: 'password',
     passReqToCallback: true
 },
-    async (req,email, password, done) => {
+    async (req, email, password, done) => {
         var type = "teacher"
         console.log("login")
         try {
-            const user = await usermodel.findOne({ email ,type});
+            const user = await usermodel.findOne({ email, type });
 
             if (!user) {
                 return done(null, false, { message: 'User not found' });

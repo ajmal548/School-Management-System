@@ -39,7 +39,7 @@ router.post('/login', async (req, res, next) => {
                     //age:user.age,
                     type:user.type
                  };
-                const token = jwt.sign({ user: body }, 'TOP_SECRET');
+                const token = jwt.sign({ user: body }, 'TOP_SECRET',{expiresIn:'1m'});
 
                 return res.json({ token });
             }
