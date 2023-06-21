@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var cron = require('node-cron');
 
 var student = require('../schema/studentschema');
 var stdsub_collection = require('../schema/stdsubschema');
@@ -29,6 +30,19 @@ router.post('/',async(req,res)=>{
       res.send(err)
    }
 });
+
+
+
+
+// cron.schedule('*/20 * * * * *',async () => {
+//    var data = await student.find()
+//    console.log(data);
+//  });
+
+
+
+
+
 
 router.get('/find',async(req,res)=>{
    var data = await student.find() 

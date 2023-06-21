@@ -17,29 +17,56 @@ router.post('/signup', passport.authenticate('signup', { session: false }),
 //     res.json()
 // })
 
+// router.post('/login', function(req, res, next) {
+//     passport.authenticate('login', function(err, user, info) {
+//       if (err) { return next(err); }
+//       if (!user) { 
+//           res.status(401);
+//           res.end(info.message);
+//           console.log('log1')
+//           return;
+//       }
+//       req.login(user, { session: false }, async (error) => {
+//         if (error) return next(error);
+
+//         const body = { 
+//             _id: user._id, 
+//             email: user.email,
+//             type:user.type
+//          };
+//          console.log('log2')
+//         const token = jwt.sign({ user: body }, 'TOP_SECRET',{expiresIn:'1m'});
+
+//         return res.json({ token });
+//     }
+//     );
+//     })(req, res, next);
+//   });
+
 
 router.post('/login', async (req, res, next) => {
     passport.authenticate('login', async (err, user, info) => {
-        //console.log('success');
         try {
-            if (err || !user) {
-                const error = new Error('An error occurred.');
-
+            if (err) {
                 return next(error);
+            }
+            if (!user) {
+                res.status(401);
+                res.end(info.message);
+                console.log('error')
+                return;
             }
 
             req.login(user, { session: false }, async (error) => {
                 if (error) return next(error);
 
-                const body = { 
-                    _id: user._id, 
+                const body = {
+                    _id: user._id,
                     email: user.email,
-                    //name: user.name,
-                    //ph: user.ph,
-                    //age:user.age,
-                    type:user.type
-                 };
-                const token = jwt.sign({ user: body }, 'TOP_SECRET',{expiresIn:'1m'});
+                    type: user.type
+                };
+                console.log('success')
+                const token = jwt.sign({ user: body }, 'TOP_SECRET', { expiresIn: '1m' });
 
                 return res.json({ token });
             }
