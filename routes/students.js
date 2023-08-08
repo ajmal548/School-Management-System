@@ -33,7 +33,6 @@ router.post('/',async(req,res)=>{
 
 
 
-
 // cron.schedule('*/20 * * * * *',async () => {
 //    var data = await student.find()
 //    console.log(data);
@@ -45,6 +44,12 @@ router.post('/',async(req,res)=>{
 
 
 router.get('/find',async(req,res)=>{
+   console.log(req.query);
+   var data = await student.find(req.query) 
+      res.send(data)
+});
+
+router.get('/',async(req,res)=>{
    var data = await student.find() 
       res.send(data)
 });

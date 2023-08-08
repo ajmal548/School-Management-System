@@ -2,6 +2,7 @@ var express = require('express');
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
 var router = express.Router();
+var User = require('../schema/userschema');
 
 router.post('/signup', passport.authenticate('signup', { session: false }),
     function (req, res, next) {
@@ -85,4 +86,9 @@ router.get('/profile', (req, res, next) => {
         token: req.query.key
     })
 });
+router.get('/find',async(req,res)=>{
+    var data = await User.find({name:{$regex :req.query.name}})
+    res.send(data)
+});
+
 module.exports = router;
