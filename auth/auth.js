@@ -35,14 +35,14 @@ passport.use('login', new localStrategy({
         var type = "teacher"
         //console.log("login")
         try {
-            const user = await usermodel.findOne({ email,type });
+            const user = await usermodel.findOne({ email, type });
             console.log("login1")
 
             if (!user) {
                 console.log("User not found")
                 return done(null, false, { message: 'User not found' });
             }
-            
+
 
             const validate = await user.isValidPassword(password);
             console.log("login2")
@@ -54,7 +54,6 @@ passport.use('login', new localStrategy({
 
             return done(null, user, { message: 'Logged in Successfully' });
         } catch (error) {
-            console.log("login3")
             return done(error);
         }
     }

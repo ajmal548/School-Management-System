@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var cron = require('node-cron');
+var { query } = require('express-validator');
+
+// var cron = require('node-cron');
 
 var student = require('../schema/studentschema');
 var stdsub_collection = require('../schema/stdsubschema');
