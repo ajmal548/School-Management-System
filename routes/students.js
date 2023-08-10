@@ -9,6 +9,36 @@ var student = require('../schema/studentschema');
 var stdsub_collection = require('../schema/stdsubschema');
 var mark = require("../schema/markschema");
 
+// router.post('/',[
+//    body('name').notEmpty().withMessage('name is required'),
+//     body('age').notEmpty().withMessage('age is required'),
+//     body('ph').notEmpty().withMessage('enter the phone number')
+// ],async(req,res)=>{
+//    var errors = validationResult(req);
+//         if (!errors.isEmpty()) {
+//             res.status(400);
+//             return res.json({ errors: errors.array() });
+//         }
+//    try{
+//       var StudentInfo = req.body;
+//          var newstudents = new studentmodel({
+//             name: StudentInfo.name,
+//             age: StudentInfo.age,
+//             ph: StudentInfo.ph
+//          })
+//          var c = StudentInfo.ph;
+//          if (c.length < 10 || c.length > 10) {
+//             res.send("please enter 10 digit");
+//          } else {
+//             res.send("done")
+//          }
+//          var data = await newstudents.save()
+//             res.send(data);
+//    }catch(err){
+//       res.send(err)
+//    }
+// });
+
 router.post('/',async(req,res)=>{
    console.log("post")
    try{
@@ -16,7 +46,7 @@ router.post('/',async(req,res)=>{
       if (!StudentInfo.name || !StudentInfo.age || !StudentInfo.ph) {
          res.send("Sorry,worng data");
       } else {
-         var newstudents = new studentmodel({
+         var newstudents = new student({
             name: StudentInfo.name,
             age: StudentInfo.age,
             ph: StudentInfo.ph
