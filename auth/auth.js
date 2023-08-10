@@ -31,24 +31,19 @@ passport.use('login', new localStrategy({
     passwordField: 'password',
     passReqToCallback: true
 },
-    async (req, email, password, done) => {
-        var type = "teacher"
-        //console.log("login")
+    async (req,email, password, done) => {
+        var type = "teacher";
+        console.log("login")
         try {
-            const user = await usermodel.findOne({ email, type });
-            console.log("login1")
+            const user = await usermodel.findOne({ email ,type});
 
             if (!user) {
-                console.log("User not found")
                 return done(null, false, { message: 'User not found' });
             }
 
-
             const validate = await user.isValidPassword(password);
-            console.log("login2")
 
             if (!validate) {
-                console.log("Wrong Password")
                 return done(null, false, { message: 'Wrong Password' });
             }
 
@@ -77,3 +72,4 @@ passport.use(
         }
     )
 );
+

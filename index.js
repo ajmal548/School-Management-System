@@ -20,12 +20,13 @@ require('./auth/auth')
 var st = require('./routes/students');
 var stsb = require('./routes/stdsub');
 var sb = require('./routes/subjects');
+
+var st = require('./routes/students');
+var stsb = require('./routes/stdsub');
+var sb = require('./routes/subjects');
 const routes = require('./routes/user'); 
 var exam =require('./routes/exam');
 var mark =require('./routes/marks');
-var User = require('./routes/user');
-var swaggerJsdoc = require("swagger-jsdoc");
-var swaggerUi = require("swagger-ui-express");
 
 
 app.use('/student',st);
@@ -34,7 +35,6 @@ app.use('/subject',sb);
 app.use('/', routes);
 app.use('/exam',exam)
 app.use('/mark',mark);
-app.use('/User',User);
 
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
 app.use('/user', passport.authenticate('jwt', { session: false }), routes);

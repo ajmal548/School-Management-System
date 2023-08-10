@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var { query } = require('express-validator');
+const { body, validationResult } = require('express-validator');
+
 
 // var cron = require('node-cron');
 
@@ -11,27 +12,44 @@ var mark = require("../schema/markschema");
 router.post('/',async(req,res)=>{
    try{
       var StudentInfo = req.body;
-      if (!StudentInfo.name || !StudentInfo.age || !StudentInfo.ph) {
-         res.send("Sorry,worng data");
-      } else {
-         var newstudents = new studentmodel({
-            name: StudentInfo.name,
-            age: StudentInfo.age,
-            ph: StudentInfo.ph
-         })
-         var c = StudentInfo.ph;
-         if (c.length < 10 || c.length > 10) {
-            res.send("please enter 10 digit");
-         } else {
-            res.send("done")
-         }
-         var data = await newstudents.save()
-            res.send(data);
-      }
-   }catch(err){
-      res.send(err)
+      var newstudents = new studentmodel({
+         name: StudentInfo.name,
+         age: StudentInfo.age,
+         ph: StudentInfo.ph
+      })
+      var data = await newstudents.save()
+      res.send(data);
+   }
+   catch (error){
+      res.send("err");
    }
 });
+
+
+// router.post('/',async(req,res)=>{
+//    try{
+//       var StudentInfo = req.body;
+//       if (!StudentInfo.name || !StudentInfo.age || !StudentInfo.ph) {
+//          res.send("Sorry,worng data");
+//       } else {
+//          var newstudents = new studentmodel({
+//             name: StudentInfo.name,
+//             age: StudentInfo.age,
+//             ph: StudentInfo.ph
+//          })
+//          var c = StudentInfo.ph;
+//          if (c.length < 10 || c.length > 10) {
+//             res.send("please enter 10 digit");
+//          } else {
+//             res.send("done")
+//          }
+//          var data = await newstudents.save()
+//             res.send(data);
+//       }
+//    }catch(err){
+//       res.send(err)
+//    }
+// });
 
 
 
