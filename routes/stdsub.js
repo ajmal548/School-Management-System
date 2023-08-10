@@ -3,6 +3,7 @@ var router = express.Router();
 var stdsub_collection = require("../schema/stdsubschema");
 
 router.post('/', async (req, res) => {
+   console.log("he")
    try {
       var ssInfo = req.body;
       if (data.length > 0) {
